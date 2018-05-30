@@ -6,7 +6,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 version = '0.0.0-SNAPSHOT'
 
-defaultTasks 'driverZip'
+defaultTasks 'driverFolder'
 
 dependencies {
 	compile 'com.untill:untill-driver-api2:2.0'
@@ -49,6 +49,21 @@ task driverZip(type: Zip, dependsOn: jar) {
 
 artifacts {
 	archives driverZip
+}
+
+task driverFolder(type: Copy, dependsOn: jar) {
+	group = 'build'
+	description = 'assembles driver folder'
+	from (jar.archivePath)
+	configurations.compile.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+		if (artifact.name != 'untill-driver-api2') {
+			from (artifact.file)
+		}
+	}
+	from ('lib') {
+		include '**/*.jar'
+	}
+	into new File(project.distsDir, project.name)
 }
 
 task genSrc {

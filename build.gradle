@@ -16,7 +16,7 @@ dependencies {
 
 repositories {
 	maven {
-		url 'https://dev.untill.com/artifactory'
+		url 'https://dev.untill.com/artifactory/repo'
 	}
 }
 

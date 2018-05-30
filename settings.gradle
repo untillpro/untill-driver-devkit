@@ -1,0 +1,3 @@
+rootProject.name = 'my-driver'
+gradle.ext.mainClassPackage = 'com.mycompany.mypackage'
+gradle.ext.mainClassName = 'MyDriver'

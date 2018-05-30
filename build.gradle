@@ -66,85 +66,80 @@ task driverFolder(type: Copy, dependsOn: jar) {
 	into new File(project.distsDir, project.name)
 }
 
-task genSrc {
-	doFirst {
-		if (file('src').exists()) return
-		if (project.name == 'my-driver') throw new GradleException('Project name is not changed from default value')
-		if (gradle.mainClassPackage == 'com.mycompany.mypackage') throw new GradleException('Package is not changed from default value')
-		if (gradle.mainClassName == 'MyDriver') throw new GradleException('Class name is not changed from default value')
+if (!file('src').exists()) {
+	if (project.name == 'my-driver') throw new GradleException('Project name is not changed from default value')
+	if (gradle.mainClassPackage == 'com.mycompany.mypackage') throw new GradleException('Package is not changed from default value')
+	if (gradle.mainClassName == 'MyDriver') throw new GradleException('Class name is not changed from default value')
 
-		sourceSets.main.java.srcDirs.each { it.mkdirs() }
-		sourceSets.test.java.srcDirs.each { it.mkdirs() }
-		sourceSets.main.resources.srcDirs.each { it.mkdirs() }
-		sourceSets.test.resources.srcDirs.each { it.mkdirs() }
-		file('lib').mkdirs()
-		def packagePath = new File(sourceSets.main.java.srcDirs[0], gradle.mainClassPackage.replace('.', '/'))
-		packagePath.mkdirs()
-		new File(packagePath, gradle.mainClassName + '.java').write """\
-			package ${gradle.mainClassPackage};
+	sourceSets.main.java.srcDirs.each { it.mkdirs() }
+	sourceSets.test.java.srcDirs.each { it.mkdirs() }
+	sourceSets.main.resources.srcDirs.each { it.mkdirs() }
+	sourceSets.test.resources.srcDirs.each { it.mkdirs() }
+	file('lib').mkdirs()
+	def packagePath = new File(sourceSets.main.java.srcDirs[0], gradle.mainClassPackage.replace('.', '/'))
+	packagePath.mkdirs()
+	new File(packagePath, gradle.mainClassName + '.java').write """\
+		package ${gradle.mainClassPackage};
 
-			import java.util.ArrayList;
-			import java.util.Map;
+		import java.util.ArrayList;
+		import java.util.Map;
 
-			import com.untill.driver.IDriver;
-			import com.untill.driver.IDriverContext;
-			import com.untill.driver.interfaces.IDriverInterface;
-			import com.untill.driver.params.DriverParam;
-			import com.untill.driver.params.ParamType;
+		import com.untill.driver.IDriver;
+		import com.untill.driver.IDriverContext;
+		import com.untill.driver.interfaces.IDriverInterface;
+		import com.untill.driver.params.DriverParam;
+		import com.untill.driver.params.ParamType;
 
-			public class ${gradle.mainClassName} implements IDriver {
+		public class ${gradle.mainClassName} implements IDriver {
 
-				public static final String PARAM_URL = "https://127.0.0.1:7777";
+			public static final String PARAM_URL = "https://127.0.0.1:7777";
 
-				public static final String PARAM_USER = "user";
+			public static final String PARAM_USER = "user";
 
-				public static final String PARAM_PASSWORD = "password";
+			public static final String PARAM_PASSWORD = "password";
 
-				@Override
-				public ArrayList<DriverParam> getParamsList() {
-					// TODO add driver parameters
-					return DriverParam.list(
-							new DriverParam.Builder().key(PARAM_URL).title("Platform Address")
-									.type(ParamType.STRING).mandatory(true).build(),
-							new DriverParam.Builder().key(PARAM_USER).title("User")
-									.type(ParamType.STRING).mandatory(true).build(),
-							new DriverParam.Builder().key(PARAM_PASSWORD).title("Password")
-									.type(ParamType.STRING).mandatory(true).build()
-					);
-				}
-
-				@Override
-				public String getDriverName() {
-					return "Foo Driver";
-				}
-
-				@Override
-				public String getProviderName() {
-					return "My Company";
-				}
-
-				@Override
-				public String getVersion() {
-					return this.getClass().getPackage().getImplementationVersion();
-				}
-
-				@Override
-				public Map<Class<? extends IDriverInterface>, IDriverInterface> init(IDriverContext context) {
-					/* 
-					 * TODO init & return interfaces, example:
-					 * return DriverInterfaces.map(IEft, FooEft);
-					 */
-					return null;
-				}
-
-				@Override
-				public void finit() {
-					// TODO Release resources, etc
-				}
-
+			@Override
+			public ArrayList<DriverParam> getParamsList() {
+				// TODO add driver parameters
+				return DriverParam.list(
+						new DriverParam.Builder().key(PARAM_URL).title("Platform Address")
+								.type(ParamType.STRING).mandatory(true).build(),
+						new DriverParam.Builder().key(PARAM_USER).title("User")
+								.type(ParamType.STRING).mandatory(true).build(),
+						new DriverParam.Builder().key(PARAM_PASSWORD).title("Password")
+								.type(ParamType.STRING).mandatory(true).build()
+				);
 			}
-		""".stripIndent()
-	}
+
+			@Override
+			public String getDriverName() {
+				return "Foo Driver";
+			}
+
+			@Override
+			public String getProviderName() {
+				return "My Company";
+			}
+
+			@Override
+			public String getVersion() {
+				return this.getClass().getPackage().getImplementationVersion();
+			}
+
+			@Override
+			public Map<Class<? extends IDriverInterface>, IDriverInterface> init(IDriverContext context) {
+				/* 
+				 * TODO init & return interfaces, example:
+				 * return DriverInterfaces.map(IEft, FooEft);
+				 */
+				return null;
+			}
+
+			@Override
+			public void finit() {
+				// TODO Release resources, etc
+			}
+
+		}
+	""".stripIndent()
 }
-tasks.compileJava.dependsOn genSrc
-tasks.eclipse.dependsOn genSrc

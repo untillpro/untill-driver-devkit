@@ -11,30 +11,41 @@ Clone devkit to your local directory using command line:
 git clone https://github.com/untillpro/untill-driver-devkit
 ```
 
-Open `settings.gradle` file for editing, and specify your project name, package and class name:
+Open `settings.gradle` file for editing, and specify your project name, package and class name instead of default ones:
 
 ```
-projectName = an-example-driver
-package = com.my.package
-className = MyExampleDriver
+rootProject.name = 'my-driver'
+gradle.ext.mainClassPackage = 'com.mycompany.mypackage'
+gradle.ext.mainClassName = 'MyDriver'
 ```
+
+_Project name will be a part of driver distribution filename_
 
 Now create project structure using command line:
 ```
-gradlew
+gradlew eclipse
 ```
 
-Now the project for your new driver is created. You can open it in IDE and start developing driver as it described in [unTill(r) Driver API](https://github.com/untillpro/untill-driver-api2).
+Now the project for your new driver is created. You can import this project into IDE and start developing driver as it described in [unTill(r) Driver API](https://github.com/untillpro/untill-driver-api2).
 
 ## Building Driver 
 
-By running gradle in the existing project it prepares ZIP file with driver distribution folder which can be used in unTill(r) installations:
+By running gradle in the existing project it prepares driver distribution folder which can be used in unTill(r) installations:
 
 ```
 gradlew
 ```
 
-Now you can find your driver distribution in `build/distributions` folder of your driver project. Unzip and copy distribution folder to the `UNTILL_HOME/plugins/drivers` folder, and restart unTill(r) JServer.
+Now you can find your driver distribution in `build/distributions/my-driver-folder`.Copy distribution folder to the `UNTILL_HOME/plugins/drivers` folder, and restart unTill(r) JServer.
+
+## Changing Driver Version
+
+Driver version is automatically included into driver distribution file name. Also, version is displayed in unTill(r) Backoffice in driver selection list.
+
+You assign version to your driver manually, by editing `build.gradle` file:
+```
+version = '0.0.0-SNAPSHOT'
+```
 
 ## Using Your Driver in unTill(r)
 

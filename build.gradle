@@ -147,3 +147,4 @@ task genSrc {
 	}
 }
 tasks.compileJava.dependsOn genSrc
+tasks.eclipse.dependsOn genSrc

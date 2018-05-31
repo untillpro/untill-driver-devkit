@@ -47,7 +47,7 @@ You assign version to your driver manually, by editing `build.gradle` file:
 version = '0.0.0-SNAPSHOT'
 ```
 
-## Using JAR libraries in Your Driver
+## Using JAR Libraries in Your Driver
 
 Put any JAR libraries you want to use into `lib`  folder in your driver project structure. Running `gradlew eclipse` from command line will update classpath in your project file. Those libraries will be automatically included in driver distribution.
 

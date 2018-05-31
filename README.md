@@ -19,14 +19,14 @@ gradle.ext.mainClassPackage = 'com.mycompany.mypackage'
 gradle.ext.mainClassName = 'MyDriver'
 ```
 
-_Project name will be a part of driver distribution filename_
+_Project name will be a part of driver distribution folder_
 
-Now create project structure using command line:
+Create project structure using command line:
 ```
 gradlew eclipse
 ```
 
-Now the project for your new driver is created. You can import this project into IDE and start developing driver as it described in [unTill(r) Driver API](https://github.com/untillpro/untill-driver-api2).
+The project for your new driver is created now. You can import this project into IDE and start developing driver as it described in [unTill(r) Driver API](https://github.com/untillpro/untill-driver-api2).
 
 ## Building Driver 
 
@@ -36,7 +36,7 @@ By running gradle in the existing project it prepares driver distribution folder
 gradlew
 ```
 
-Now you can find your driver distribution in `build/distributions/my-driver-folder`.Copy distribution folder to the `UNTILL_HOME/plugins/drivers` folder, and restart unTill(r) JServer.
+Now you can find your driver distribution in `build/distributions/my-driver-folder`. Copy distribution folder to the `UNTILL_HOME/plugins/drivers` folder, and restart unTill(r) JServer.
 
 ## Changing Driver Version
 

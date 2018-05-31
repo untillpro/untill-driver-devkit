@@ -26,7 +26,7 @@ Create project structure using command line:
 gradlew eclipse
 ```
 
-The project for your new driver is created now. You can import this project into IDE and start developing driver as it described in [unTill(r) Driver API](https://github.com/untillpro/untill-driver-api2).
+The project for your new driver is created now. You can import this project into Eclipse IDE and start developing driver as it described in [unTill(r) Driver API](https://github.com/untillpro/untill-driver-api2).
 
 ## Building Driver 
 
@@ -46,6 +46,10 @@ You assign version to your driver manually, by editing `build.gradle` file:
 ```
 version = '0.0.0-SNAPSHOT'
 ```
+
+## Using JAR libraries in your driver
+
+Put any JAR libraries you want to use into `lib`  folder in your driver project structure. Running `gradlew eclipse` from command line will update classpath in your project file. Those libraries will be automatically included in driver distribution.
 
 ## Using Your Driver in unTill(r)
 

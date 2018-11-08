@@ -9,7 +9,7 @@ version = '0.0.0-SNAPSHOT'
 defaultTasks 'driverFolder'
 
 dependencies {
-	compile 'com.untill:untill-driver-api2:2.0'
+	compile 'com.untill:untill-driver-api2:5.0'
 	compile fileTree(dir: 'lib', include: '*.jar')
 	testCompile 'junit:junit:4.12'
 }

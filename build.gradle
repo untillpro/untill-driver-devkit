@@ -95,7 +95,9 @@ if (!file('src').exists()) {
 
 		public class ${gradle.mainClassName} implements IDriver {
 
-			public static final String PARAM_URL = "https://127.0.0.1:7777";
+			public static final String PARAM_URL = "url";
+
+			public static final String PARAM_URL_DEFAULT = "https://127.0.0.1:7777";
 
 			public static final String PARAM_USER = "user";
 
@@ -103,10 +105,10 @@ if (!file('src').exists()) {
 
 			@Override
 			public ArrayList<DriverParam> getParamsList() {
-				// TODO add driver parameters
+				// TODO add real driver parameters. A code below is just an example
 				return DriverParam.list(
 						new DriverParam.Builder().key(PARAM_URL).title("Platform Address")
-								.type(ParamType.STRING).mandatory(true).build(),
+								.type(ParamType.STRING).defaultValue(PARAM_URL_DEFAULT).mandatory(true).build(),
 						new DriverParam.Builder().key(PARAM_USER).title("User")
 								.type(ParamType.STRING).mandatory(true).build(),
 						new DriverParam.Builder().key(PARAM_PASSWORD).title("Password")
